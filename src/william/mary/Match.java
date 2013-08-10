@@ -55,12 +55,23 @@ public class Match {
     public void setAwayScore(int AwayScore) {
         this.AwayScore = AwayScore;
     }
-    
+
     public int getDay() {
         return Day;
     }
 
     public void setDay(int Day) {
         this.Day = Day;
+    }
+
+    public void print() {
+
+        String HomeTeam = this.HomeTeam.getName();
+        String AwayTeam = this.AwayTeam.getName();
+        int HomeScore = this.HomeScore;
+        int AwayScore = this.AwayScore;
+        int Day = this.Day;
+
+        System.out.println(HomeTeam + " " + HomeScore + " - " + AwayScore + " " + AwayTeam + " / " + Day);
     }
 }

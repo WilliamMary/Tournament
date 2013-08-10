@@ -115,6 +115,10 @@ public class Team {
         this.setDifference(this.getGoalScored() - this.getConceded());
     }
 
+    void addMatch(Match MatchToAdd) {
+        this.listMatchs.put(MatchToAdd.getHomeTeam().getCode() + "-" + MatchToAdd.getAwayTeam().getCode(), MatchToAdd);
+    }
+    
     public void print() {
         String nameDisplay = this.getName();
         String codeDisplay = this.getCode();

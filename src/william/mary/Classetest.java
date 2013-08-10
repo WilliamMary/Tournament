@@ -25,7 +25,11 @@ public class Classetest {
                         break;
                     case "ObjectsMatch.txt":
                         Match MatchToAdd = loadFileMatch(line);
-                        listMatch.put(MatchToAdd.getHomeTeam() + "-" + MatchToAdd.getAwayTeam(), MatchToAdd);
+                        listMatch.put(MatchToAdd.getHomeTeam().getCode() + "-" + MatchToAdd.getAwayTeam().getCode(), MatchToAdd);
+                        Team HomeTeam = listTeam.get(MatchToAdd.getHomeTeam().getCode());
+                        HomeTeam.addMatch(MatchToAdd);
+                        Team AwayTeam = listTeam.get(MatchToAdd.getAwayTeam().getCode());
+                        AwayTeam.addMatch(MatchToAdd);
                         break;
                 }
             }
@@ -80,7 +84,8 @@ public class Classetest {
         System.out.println("1 - Voir les ligues");
         System.out.println("2 - Voir les équipes");
         System.out.println("3 - Voir les matchs");
-        System.out.println("4 - Quitter");
+        System.out.println("4 - Ajouter une ligue");
+        System.out.println("5 - Quitter");
 
         return KeyBoard.nextInt();
     }
@@ -97,42 +102,75 @@ public class Classetest {
             ChoosenMenu = Menu();
 
             switch (ChoosenMenu) {
-                
+
                 case 1:
                     for (Iterator<String> it = listLeague.keySet().iterator(); it.hasNext();) {
                         String KeyLeague = it.next();
                         League leagueToDisplay = listLeague.get(KeyLeague);
                         leagueToDisplay.print();
-                        
+
+                    }
+                    break;
+
+                case 2:
+                    for (Iterator<String> it = listTeam.keySet().iterator(); it.hasNext();) {
+                        String KeyTeam = it.next();
+                        Team teamToDisplay = listTeam.get(KeyTeam);
+                        teamToDisplay.print();
+                    }
+                    break;
+
+                case 3:
+                    for (Iterator<String> it = listMatch.keySet().iterator(); it.hasNext();) {
+                        String KeyMatch = it.next();
+                        Match matchToDisplay = listMatch.get(KeyMatch);
+                        matchToDisplay.print();
+
+                    }
+                    break;
+
+                case 4:
+                    Scanner Keyboard = new Scanner(System.in);
+                    System.out.println("Saisissez le nom de la league.");
+                    String LeagueName = Keyboard.nextLine();
+                    League newLeague = new League(LeagueName);
+                    listLeague.put(LeagueName, newLeague);
+
+                    System.out.println("Souhaitez vous ajouter des équipes ?");
+                    String answer = Keyboard.next();
+                    switch (answer) {
+                        case "yes":
+                        case "oui":
+                        case "OUI":
+                        case "O":
+                            for (Iterator<String> it = listTeam.keySet().iterator(); it.hasNext();) {
+                                String codeTeam = it.next();
+                                Team oneTeam = listTeam.get(codeTeam);
+                                oneTeam.print();   
+                            }
+                            System.out.println("Entrer le code de l'équipe à ajouter.");
+                            String codeTeam = Keyboard.next();
+                            newLeague.addTeam(listTeam.get(codeTeam));
+                            System.out.println("Equipe ajoutée");
+                            break;
+                        default:
+                            System.out.println("Réponse éronnée.");
                     }
                     break;
                     
-                case 2:
-                    break;
-                    
-                case 3:
+                case 5:
+            
                     break;
             }
 
-        } while (ChoosenMenu != 4);
-
-
-//        /* Créé deux HashMap en indiquant le type des clefs et des valeurs. */
-//        HashMap<String, String> listTeamToCreate = new HashMap();
-//        HashMap<String, Team> listTeam = new HashMap();
-//
-//        /* On ajoute les clefs et les noms des équipes à créer. */
-//        listTeamToCreate.put("ARS", "Arsenal");
-//        listTeamToCreate.put("MAN", "Manchester");
-//        listTeamToCreate.put("LVP", "Liverpool");
-//        listTeamToCreate.put("CHE", "Chelsea");
+        } while (ChoosenMenu != 6);
 //
 //
 //        /* Parcours listTeamToCreate pour créer les objets Team avec les valeurs qu'elle contient. */
 //        for (Iterator<String> iterator = listTeamToCreate.keySet().iterator(); iterator.hasNext();) {
-//            String CurrentKey = iterator.next(); // Récupère la clé suivante.
-//            Team NewTeam = new Team(CurrentKey.toString(), listTeamToCreate.get(CurrentKey)); // Créé un objet Team à partir du constructeur de la classe.
-//            listTeam.put(CurrentKey.toString(), NewTeam); // Ajoute l'objet créer à la HashMap listTeam.
+//            String CurrentKey = iterator.next(); 
+//            Team NewTeam = new Team(CurrentKey.toString(), listTeamToCreate.get(CurrentKey)); 
+//            listTeam.put(CurrentKey.toString(), NewTeam); 
 //
 //        }
 //
@@ -141,13 +179,13 @@ public class Classetest {
 //
 //        /* Parcours listTeam pour récupérer les objets Team qu'elle contient. */
 //        for (Iterator<String> itHome = listTeam.keySet().iterator(); itHome.hasNext();) {
-//            String KeyHome = itHome.next(); // Récupère la clé suivante.
+//            String KeyHome = itHome.next(); 
 //
-//            Team currentTeamHome = listTeam.get(KeyHome); // Récupère l'objet Team associé à la clé.
+//            Team currentTeamHome = listTeam.get(KeyHome); 
 //
 //            for (Iterator<String> itAway = listTeam.keySet().iterator(); itAway.hasNext();) {
-//                String KeyAway = itAway.next(); // Récupère la clé suivante.
-//                Team currentTeamAway = listTeam.get(KeyHome); // Récupère l'objet Team associé à la clé.
+//                String KeyAway = itAway.next(); 
+//                Team currentTeamAway = listTeam.get(KeyHome); 
 //
 //                if (!KeyHome.equals(KeyAway)) {
 //                    Match newMatch = new Match(currentTeamHome, currentTeamAway);

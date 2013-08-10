@@ -30,7 +30,6 @@ public class League {
 
     void addTeam(Team TeamToAdd) {
         this.listTeams.put(TeamToAdd.getCode(), TeamToAdd);
-        this.listTeams.get(TeamToAdd.getCode());
     }
 
     Team getOneTeam(String Key) {
