@@ -2,12 +2,14 @@ package william.mary;
 
 public class Match {
 
-    private Team HomeTeam; // Equipe à domicile.
-    private Team AwayTeam; // Equipe visiteur.
-    private int HomeScore; // Score de l'équipe à domicile.
-    private int AwayScore; // Score de l'équipe visiteur.
-    private int Day; // Journée durant laquelle a lieu le match.
+    /* Attributs */
+    private Team HomeTeam;
+    private Team AwayTeam;
+    private int HomeScore;
+    private int AwayScore;
+    private int Day;
 
+    /* Constructeur */
     public Match(Team HomeTeam, Team AwayTeam) {
         this.HomeTeam = HomeTeam;
         this.AwayTeam = AwayTeam;
@@ -16,6 +18,7 @@ public class Match {
         this.Day = 0;
     }
 
+    /* Constructeur */
     public Match(Team HomeTeam, Team AwayTeam, int HomeScore, int AwayScore, int Day) {
         this.HomeTeam = HomeTeam;
         this.AwayTeam = AwayTeam;
@@ -24,6 +27,7 @@ public class Match {
         this.Day = Day;
     }
 
+    /* Accesseurs(get) et mutateurs(set) */
     public Team getHomeTeam() {
         return HomeTeam;
     }
@@ -64,14 +68,9 @@ public class Match {
         this.Day = Day;
     }
 
-    public void print() {
-
-        String HomeTeam = this.HomeTeam.getName();
-        String AwayTeam = this.AwayTeam.getName();
-        int HomeScore = this.HomeScore;
-        int AwayScore = this.AwayScore;
-        int Day = this.Day;
-
-        System.out.println(HomeTeam + " " + HomeScore + " - " + AwayScore + " " + AwayTeam + " / " + Day);
+    /* Méthode permettant d'afficher l'ensemble des informations d'un objet Match. */
+    void print() {
+        System.out.println(this.getHomeTeam().getName() + " " + this.getHomeScore()
+                + " - " + this.getAwayScore() + " " + this.getAwayTeam().getName());
     }
 }

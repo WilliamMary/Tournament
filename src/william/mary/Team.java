@@ -1,9 +1,11 @@
 package william.mary;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Team {
 
+    /* Attributs */
     private String name;
     private String code;
     private int points;
@@ -13,6 +15,7 @@ public class Team {
     private int difference;
     private HashMap<String, Match> listMatchs = new HashMap();
 
+    /* Constructeur */
     public Team(String code, String name) {
         this.code = code;
         this.name = name;
@@ -23,7 +26,9 @@ public class Team {
         this.difference = 0;
     }
 
-    public Team(String name, String code, int points, int matchPlayed, int goalScored, int conceded, int difference) {
+    /* Constructeur */
+    public Team(String name, String code, int points, int matchPlayed, int goalScored,
+            int conceded, int difference) {
         this.name = name;
         this.code = code;
         this.points = points;
@@ -33,6 +38,7 @@ public class Team {
         this.difference = difference;
     }
 
+    /* Accesseurs(get) et mutateurs(set) */
     public String getName() {
         return name;
     }
@@ -97,16 +103,19 @@ public class Team {
         this.listMatchs = listMatchs;
     }
 
+    /* Méthode permettant d'incrémenter l'attribut goalScored. */
     public void addGoalScored(int Score) {
         Score += this.getGoalScored();
         this.setGoalScored(Score);
     }
 
+    /* Méthode permettant d'incrémenter l'attribut conceded. */
     public void addConcededScore(int Score) {
         Score += this.getConceded();
         this.setConceded(Score);
     }
 
+    /* Méthode permettant de mettre à jour l'ensemble des statistiques d'un objet Team. */
     public void upgradeStatTeam(int points, int goalScored, int conceded) {
         this.setPoints(this.getPoints() + points);
         this.setMatchPlayed(this.getMatchPlayed() + 1);
@@ -115,62 +124,25 @@ public class Team {
         this.setDifference(this.getGoalScored() - this.getConceded());
     }
 
-    void addMatch(Match MatchToAdd) {
-        this.listMatchs.put(MatchToAdd.getHomeTeam().getCode() + "-" + MatchToAdd.getAwayTeam().getCode(), MatchToAdd);
-    }
-    
+    /* Méthode permettant d'afficher l'ensemble des informations d'un objet Team. */
     public void print() {
-        String nameDisplay = this.getName();
-        String codeDisplay = this.getCode();
-        int pointsDisplay = this.getPoints();
-        int matchPlayedDisplay = this.getMatchPlayed();
-        int goalScoredDisplay = this.getGoalScored();
-        int concededDisplay = this.getConceded();
-        int differenceDisplay = this.getDifference();
-
-        System.out.println(codeDisplay + "   " + nameDisplay + "  " + pointsDisplay + "  " + matchPlayedDisplay
-                + "   " + goalScoredDisplay + "  " + concededDisplay + "  " + differenceDisplay);
+        System.out.println(" " + this.getCode() + "  | " + this.getName() + " | " + this.getPoints()
+                + " | " + this.getMatchPlayed() + " | " + this.getGoalScored()
+                + " | " + this.getConceded() + " | " + this.getDifference());
     }
-//    public int compareTo(Team aTeam) {
-//        return 0;
-//    }
-//
-//    public void addResult(int home, int away) {
-//    }
-//
-//    public void addHomeResult(int home, int away) {
-//        if (home == away) {
-//            points = points + 1;  // Draw
-//        }
-//        if (home > away) {
-//            points = points + 3; // Home Win
-//        }
-//        if (home < away) {
-//            points = points + 0; // Away Win
-//        }
-//        matchPlayed++;
-//        this.goalScored = goalScored + home;
-//        this.conceded = conceded + away;
-//        this.difference = goalScored - conceded;
-//    }
-//
-//    public void addAwayResult(int home, int away) {
-//        if (home == away) {
-//            points = points + 1;  // Draw
-//        }
-//        if (home > away) {
-//            points = points + 0; // Home Win
-//        }
-//        if (home < away) {
-//            points = points + 3; // Away Win
-//        }
-//        matchPlayed++;
-//        goalScored = goalScored + home;
-//        conceded = conceded + away;
-//        difference = goalScored - conceded;
-//    }
-//
-//    public void print() {
-//        System.out.println(division + "\t" + code + "\t" + points + "\t" + matchPlayed + "\t" + goalScored + "\t" + conceded + "\t" + difference + "\t");
-//    }
+
+    static Boolean teamFree(Boolean display, String teamCode) {
+        Boolean teamFree = true;
+        for (Iterator<String> it = Main.listLeague.keySet().iterator(); it.hasNext();) {
+            String keyListLeague = it.next();
+            if (Main.listLeague.get(keyListLeague).getListTeams().containsKey(teamCode)) {
+                teamFree = false;
+                break;
+            }
+        }
+        if (teamFree && display) {
+            Main.listTeam.get(teamCode).print();
+        }
+        return teamFree;
+    }
 }

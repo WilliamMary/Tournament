@@ -1,4 +1,4 @@
-Arsenal;ARS;10;3;5;2;3
-Manchester;MAN;3;3;2;2;0
-Liverpool;LVP;4;3;3;4;2
 Chelsea;CHE;1;3;1;2;-1
+Arsenal;ARS;10;3;5;2;3
+Liverpool;LVP;4;3;3;4;2
+Manchester;MAN;3;3;2;2;0
