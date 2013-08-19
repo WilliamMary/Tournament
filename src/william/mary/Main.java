@@ -2,7 +2,7 @@ package william.mary;
 
 import java.util.*;
 
-public class Main {
+public class Main {/* classe test renommée et simplifiée
 
     /* Déclaration de 3 HashMap contenant tout les objets existants de leur classe respective */
     static HashMap<String, League> listLeague = new HashMap();
